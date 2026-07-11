@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gokulakrishnan S — Portfolio</title>
+  <meta name="description"
+    content="Portfolio of Gokulakrishnan S, Artificial Intelligence &amp; Data Science engineering student.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      /* Aquaculture data palette — a pond-depth log, not a blueprint */
+      --paper: #f1f4ef;
+      --paper-2: #e6ebe2;
+      --ink: #fff;
+      --ink-soft: #fff;
+      --muted: #71827e;
+      --line: #d7ddd0;
+      --line-strong: #b7c2b2;
+      --card: #ffffff;
+      --accent: #128f83;
+      /* pond teal — structure, system, "live" */
+      --accent-soft: rgba(18, 143, 131, 0.08);
+      --accent-line: rgba(18, 143, 131, 0.35);
+      --amber: #dd962c;
+      /* feed-pellet amber — results, emphasis */
+      --amber-soft: rgba(221, 150, 44, 0.12);
+      --amber-line: rgba(221, 150, 44, 0.4);
+      --ok: #128f83;
+      --radius: 4px;
+      --ease: cubic-bezier(.22, .7, .32, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .mono {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    .display {
+      font-family: 'Fraunces', serif;
+    }
+
+    .index-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .index-tag::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* bathymetric contour backdrop — depth rings, not a grid */
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        repeating-radial-gradient(circle at 12% 18%, transparent 0px, transparent 42px, var(--line) 43px, transparent 44px),
+        repeating-radial-gradient(circle at 88% 12%, transparent 0px, transparent 58px, var(--line) 59px, transparent 60px),
+        repeating-radial-gradient(circle at 60% 92%, transparent 0px, transparent 50px, var(--line) 51px, transparent 52px);
+      opacity: 0.55;
+      mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, black 40%, transparent 90%);
+    }
+
+    .ticked {
+      position: relative;
+    }
+
+    .ticked::before,
+    .ticked::after {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+    }
+
+    .ticked::before {
+      top: -1px;
+      left: -1px;
+      border-top: 1.5px solid var(--ink);
+      border-left: 1.5px solid var(--ink);
+    }
+
+    .ticked::after {
+      top: -1px;
+      right: -1px;
+      border-top: 1.5px solid var(--ink);
+      border-right: 1.5px solid var(--ink);
+    }
+
+    /* ---------- Layout shell ---------- */
+    .shell {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      min-height: 100vh;
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (max-width: 880px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- Left index rail ---------- */
+    .rail {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0;
+    }
+
+    @media (max-width:880px) {
+      .rail {
+        display: none;
+      }
+    }
+
+    .rail-mark {
+      width: 16px;
+      height: 16px;
+      position: relative;
+    }
+
+    .rail-mark svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .rail-index {
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .rail-index button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .rail-index button .num {
+      transition: color .3s var(--ease);
+    }
+
+    .rail-index button .bar {
+      width: 2px;
+      height: 26px;
+      background: var(--line-strong);
+      border-radius: 2px;
+      transition: background .3s var(--ease), height .3s var(--ease), box-shadow .3s var(--ease);
+    }
+
+    .rail-index button.passed .bar {
+      background: var(--accent);
+    }
+
+    .rail-index button.passed .num {
+      color: var(--accent);
+    }
+
+    .rail-index button.active .num {
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    .rail-index button.active .bar {
+      background: var(--amber);
+      height: 36px;
+      box-shadow: 0 0 10px var(--amber-line);
+    }
+
+    .rail-vertical {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+    }
+
+    /* ---------- Mobile top nav ---------- */
+    .mobile-nav {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(241, 244, 239, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-nav .brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .mobile-nav .links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .mobile-nav .links button {
+      background: none;
+      border: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .mobile-nav .links button.active {
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    @media (max-width:880px) {
+      .mobile-nav {
+        display: flex;
+      }
+    }
+
+    @media (max-width:520px) {
+      .mobile-nav .links {
+        gap: 12px;
+      }
+    }
+
+    /* ---------- Main column ---------- */
+    main {
+      position: relative;
+    }
+
+    section {
+      padding: 96px clamp(24px, 5vw, 88px);
+      max-width: 1180px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 52px;
+      flex-wrap: wrap;
+    }
+
+    .sec-head h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 10px;
+    }
+
+    .sec-note {
+      max-width: 32ch;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* ---------- Hero ---------- */
+    #home {
+      padding-top: 64px;
+      padding-bottom: 80px;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 52px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .status-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--ok);
+      letter-spacing: 0.04em;
+      border: 1px solid var(--line-strong);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    .status-chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ok);
+      position: relative;
+    }
+
+    .status-chip .dot::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid var(--ok);
+      opacity: 0.6;
+      animation: pulseDot 2.4s ease-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0% {
+        transform: scale(0.4);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    .hero-frame {
+      padding: clamp(28px, 5vw, 56px);
+      border: 1px solid var(--line-strong);
+      background: var(--card);
+      position: relative;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    .hero-frame canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hero-frame>*:not(canvas) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-name {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      margin: 18px 0 22px;
+    }
+
+    .hero-role {
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      color: var(--ink-soft);
+      max-width: 56ch;
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .hero-role strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .hero-specs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width:760px) {
+      .hero-specs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .hero-specs .spec {
+      padding: 20px 22px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .hero-specs .spec:last-child {
+      border-right: none;
+    }
+
+    @media (max-width:760px) {
+      .hero-specs .spec:nth-child(2n) {
+        border-right: none;
+      }
+
+      .hero-specs .spec:nth-child(-n+2) {
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 18px;
+      }
+    }
+
+    .hero-specs .k {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-specs .v {
+      font-size: 0.9rem;
+      font-weight: 500;
+      line-height: 1.4;
+      padding-bottom: 4px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: var(--radius);
+      border: 1px solid var(--ink);
+      transition: all .2s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-solid {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn-solid:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-line {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .btn-line:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+      transform: translateY(-1px);
+    }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: rippleAnim .65s ease-out;
+      pointer-events: none;
+    }
+
+    @keyframes rippleAnim {
+      to {
+        transform: scale(2.6);
+        opacity: 0;
+      }
+    }
+
+    /* ---------- About ---------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+    }
+
+    @media (max-width:880px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+
+    .about-copy p {
+      color: var(--ink-soft);
+      font-weight: 300;
+      font-size: 0.98rem;
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
+    .about-copy strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .skill-table {
+      margin-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+
+    .skill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      gap: 20px;
+    }
+
+    .skill-row .name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .skill-row .bar-track {
+      width: 120px;
+      height: 3px;
+      background: var(--paper-2);
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .skill-row .bar-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--amber));
+      transition: width 1.1s var(--ease);
+    }
+
+    .spec-sheet {
+      border: 1px solid var(--line-strong);
+      background: var(--card);
+      transition: box-shadow .3s var(--ease);
+    }
+
+    .spec-sheet .sheet-head {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line-strong);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .spec-sheet .sheet-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.88rem;
+    }
+
+    .spec-sheet .sheet-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-sheet .sheet-row .k {
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+    }
+
+    .spec-sheet .sheet-row .v {
+      font-weight: 500;
+      text-align: right;
+    }
+
+    /* ---------- Project ---------- */
+    .case {
+      border: 1px solid var(--line-strong);
+      background: var(--card);
+    }
+
+    .case-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+      padding: clamp(24px, 4vw, 44px);
+      border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+
+    .case-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ok);
+      margin-bottom: 18px;
+    }
+
+    .case-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ok);
+    }
+
+    .case-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+    }
+
+    .case-desc {
+      color: var(--ink-soft);
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 58ch;
+      font-size: 0.95rem;
+    }
+
+    .case-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 210px;
+    }
+
+    .case-browser {
+      margin: clamp(24px, 4vw, 44px);
+      margin-top: 0;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--paper-2);
+    }
+
+    .case-browser .bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line-strong);
+      background: var(--card);
+    }
+
+    .case-browser .bar .b-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--line-strong);
+    }
+
+    .case-browser .bar .b-url {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-left: 10px;
+      padding: 4px 10px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .case-browser .canvas {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 18px;
+    }
+
+    @media (max-width:640px) {
+      .case-browser .canvas {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 18px;
+    }
+
+    .canvas .panel .ph-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .demo-field {
+      margin-bottom: 18px;
+    }
+
+    .demo-field:last-child {
+      margin-bottom: 0;
+    }
+
+    .demo-field label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .demo-field label span {
+      color: var(--amber);
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+    }
+
+    .demo-field select {
+      width: 100%;
+      padding: 9px 10px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.86rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .demo-field select:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--paper-2);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--amber);
+      border: 2px solid var(--card);
+      box-shadow: 0 0 0 1px var(--amber-line);
+      cursor: pointer;
+      transition: transform .15s var(--ease);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--amber);
+      border: 2px solid var(--card);
+      cursor: pointer;
+    }
+
+    .demo-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .stat-block {
+      display: flex;
+      gap: 10px;
+    }
+
+    .stat {
+      flex: 1;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 12px 8px;
+      text-align: center;
+      transition: border-color .3s var(--ease), transform .2s var(--ease);
+    }
+
+    .stat .num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      color: var(--amber);
+      font-size: 1.05rem;
+      transition: color .2s var(--ease);
+    }
+
+    .stat .lbl {
+      font-size: 0.6rem;
+      color: var(--muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .stat.flash {
+      border-color: var(--amber-line);
+      transform: translateY(-2px);
+    }
+
+    .case-meta {
+      padding: clamp(24px, 4vw, 44px);
+      padding-top: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    @media (max-width:700px) {
+      .case-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .case-meta h4 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .case-meta ul li {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      font-weight: 300;
+      line-height: 1.7;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .case-meta ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+    }
+
+    .stack-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stack-chip {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      padding: 6px 11px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      color: var(--ink-soft);
+      transition: border-color .2s var(--ease), color .2s var(--ease);
+    }
+
+    .stack-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ---------- Contact ---------- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 56px;
+    }
+
+    @media (max-width:880px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+
+    .contact-list {
+      margin-top: 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 4px;
+      border-bottom: 1px solid var(--line);
+      transition: padding-left .2s var(--ease);
+    }
+
+    .contact-row:hover {
+      padding-left: 10px;
+    }
+
+    .contact-row .k {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .contact-row .v {
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .contact-row .arrow {
+      color: var(--amber);
+      opacity: 0;
+      transition: opacity .2s var(--ease), transform .2s var(--ease);
+      transform: translateX(-4px);
+    }
+
+    .contact-row:hover .arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    form.msg-form {
+      border: 1px solid var(--line-strong);
+      background: var(--card);
+      padding: clamp(24px, 3vw, 36px);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea {
+      background: var(--paper);
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+      outline: none;
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .form-note {
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 32px clamp(24px, 5vw, 88px) 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .tilt-card {
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease);
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .tilt-card.tilting {
+      box-shadow: 0 18px 34px -20px rgba(14, 43, 44, 0.28);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .status-chip .dot::after {
+        animation: none;
+      }
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #2d3f66 0%, transparent 35%), radial-gradient(circle at bottom right, #1b7f8f 0%, transparent 30%), linear-gradient(135deg, #0b1120, #111827, #0f172a) !important;
+      background-attachment: fixed;
+      color: #fff !important;
+      overflow-x: hidden;
+    }
+
+    .grid-bg {
+      opacity: .12 !important;
+    }
+
+    .rail {
+      border-right: none !important;
+      background: rgba(255, 255, 255, .06) !important;
+      backdrop-filter: blur(20px);
+    }
+
+    .hero-frame,
+    .spec-sheet,
+    .case,
+    .msg-form {
+      background: rgba(255, 255, 255, .08) !important;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, .12) !important;
+    }
+
+    .hero-specs .spec {
+      min-width: 0;
+    }
+
+    .hero-specs .v,
+    .contact-row .v {
+      overflow-wrap: anywhere;
+    }
+
+    .b-url {
+      min-width: 0;
+    }
+
+    @media(max-width:880px) {
+      .rail {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grid-bg"></div>
+
+  <nav class="mobile-nav">
+    <span class="brand">GOKUL.S</span>
+    <div class="links">
+      <button data-target="home" class="active">01</button>
+      <button data-target="about">02</button>
+      <button data-target="project">03</button>
+      <button data-target="contact">04</button>
+    </div>
+  </nav>
+
+  <div class="shell">
+    <aside class="rail">
+      <div class="rail-mark">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 1C8 1 3 7.5 3 10.5C3 13 5.2 15 8 15C10.8 15 13 13 13 10.5C13 7.5 8 1 8 1Z" stroke="#0e2b2c"
+            stroke-width="1.4" />
+        </svg>
+      </div>
+      <nav class="rail-index" aria-label="Section navigation">
+        <button data-target="home" class="active"><span class="bar"></span><span class="num">01</span></button>
+        <button data-target="about"><span class="bar"></span><span class="num">02</span></button>
+        <button data-target="project"><span class="bar"></span><span class="num">03</span></button>
+        <button data-target="contact"><span class="bar"></span><span class="num">04</span></button>
+      </nav>
+      <span class="rail-vertical">PORTFOLIO / 2026</span>
+    </aside>
+
+    <main>
+
+      <section id="home">
+        <div class="hero-top reveal">
+          <span class="index-tag">01 — Home</span>
+          <span class="status-chip"><span class="dot"></span>Available for opportunities</span>
+        </div>
+
+        <div class="hero-frame ticked reveal tilt-card" id="heroFrame">
+          <canvas id="pondCanvas"></canvas>
+          <span class="mono" style="font-size:0.7rem;color:var(--muted);letter-spacing:0.06em;">DEPTH LOG — GKS /
+            01</span>
+          <h1 class="hero-name">Gokulakrishnan&nbsp;S</h1>
+          <p class="hero-role">
+            An <strong>Artificial Intelligence &amp; Data Science</strong> engineering student who builds
+            practical, data-driven software — currently focused on applied machine learning and
+            end-to-end product delivery.
+          </p>
+
+          <div class="hero-specs">
+            <div class="spec">
+              <div class="k">Institution</div>
+              <div class="v">St. Joseph's College of Engineering</div>
+            </div>
+            <div class="spec">
+              <div class="k">Department</div>
+              <div class="v">AI &amp; Data Science</div>
+            </div>
+            <div class="spec">
+              <div class="k">Discipline</div>
+              <div class="v">Applied Machine Learning</div>
+            </div>
+            <div class="spec">
+              <div class="k">Location</div>
+              <div class="v">Tamil Nadu, India</div>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn btn-solid" href="#project">View project</a>
+            <a class="btn btn-line" href="#contact">Contact</a>
+          </div>
+          <p class="mono" style="font-size:0.66rem;color:var(--muted);margin-top:22px;">Tip: click anywhere in this
+            frame — it ripples.</p>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="sec-head reveal">
+          <div>
+            <span class="index-tag">02 — About</span>
+            <h2>Background &amp; approach</h2>
+          </div>
+          <p class="sec-note">Engineering education, technical focus, and the tools relied on day to day.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-copy reveal">
+            <p>I'm <strong>Gokulakrishnan S</strong>, an undergraduate engineering student in
+              <strong>Artificial Intelligence with Data Science</strong> at St. Joseph's College of Engineering.
+              My interest sits at the intersection of machine learning and usable software — models are only
+              valuable once someone can act on them.
+            </p>
+            <p>That principle shaped my current project work: taking a data-driven recommendation problem
+              from raw inputs to a deployed, farmer-facing platform. I care as much about the deployment,
+              the interface, and the clarity of the output as I do about model accuracy.</p>
+            <p>I'm continuing to build depth in machine learning fundamentals, data engineering, and
+              full-stack development, with the goal of shipping systems that hold up outside a notebook.</p>
+
+            <div class="skill-table">
+              <div class="skill-row"><span class="name">Python</span><span class="bar-track"><span class="bar-fill"
+                    data-fill="92"></span></span></div>
+              <div class="skill-row"><span class="name">Machine Learning</span><span class="bar-track"><span
+                    class="bar-fill" data-fill="84"></span></span></div>
+              <div class="skill-row"><span class="name">Data Analysis</span><span class="bar-track"><span
+                    class="bar-fill" data-fill="86"></span></span></div>
+              <div class="skill-row"><span class="name">Web Development</span><span class="bar-track"><span
+                    class="bar-fill" data-fill="78"></span></span></div>
+              <div class="skill-row"><span class="name">SQL</span><span class="bar-track"><span class="bar-fill"
+                    data-fill="75"></span></span></div>
+            </div>
+          </div>
+
+          <div class="spec-sheet reveal tilt-card">
+            <div class="sheet-head"><span>Candidate profile</span><span>Rev. 2026</span></div>
+            <div class="sheet-row"><span class="k">Name</span><span class="v">Gokulakrishnan S</span></div>
+            <div class="sheet-row"><span class="k">Institution</span><span class="v">St. Joseph's College of
+                Engineering</span></div>
+            <div class="sheet-row"><span class="k">Department</span><span class="v">AI &amp; Data Science</span></div>
+            <div class="sheet-row"><span class="k">Status</span><span class="v">Engineering Student</span></div>
+            <div class="sheet-row"><span class="k">Focus areas</span><span class="v">ML, Recommendation Systems</span>
+            </div>
+            <div class="sheet-row"><span class="k">Current build</span><span class="v">Web-based recommendation
+                platform</span></div>
+            <div class="sheet-row"><span class="k">Availability</span><span class="v">Internships, collaborations</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="project">
+        <div class="sec-head reveal">
+          <div>
+            <span class="index-tag">03 — Project</span>
+            <h2>PROJECT</h2>
+          </div>
+          <p class="sec-note">One project, documented end to end — problem, build, and outcome.</p>
+        </div>
+
+        <div class="case reveal">
+          <div class="case-head">
+            <div>
+              <span class="case-status"><span class="dot"></span>Live &amp; deployed</span>
+              <h3 class="case-title">Fish Feed Recommendation System</h3>
+              <p class="case-desc">
+                A web-based platform that recommends appropriate feed types and quantities to fish farmers
+                based on pond and species data. The goal was to replace manual guesswork with a simple,
+                data-backed recommendation a farmer can actually use in the field.
+              </p>
+            </div>
+            <div class="case-cta">
+              <a class="btn btn-solid" href="https://fish-feed-recommendation-system.vercel.app/farmer" target="_blank"
+                rel="noopener noreferrer">Open live platform ↗</a>
+              <a class="btn btn-line" href="#contact">Ask about the build</a>
+            </div>
+          </div>
+
+
+          <div class="case-meta">
+            <div>
+              <h4>Problem</h4>
+              <ul>
+                <li>Farmers lacked a simple way to size feed to pond &amp; species</li>
+                <li>Manual estimation led to waste and inconsistent yields</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Approach</h4>
+              <ul>
+                <li>Structured farmer inputs into a recommendation model</li>
+                <li>Built a lightweight, farmer-facing web interface</li>
+                <li>Deployed as a live, publicly accessible platform</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Stack</h4>
+              <div class="stack-row">
+                <span class="stack-chip">Python</span>
+                <span class="stack-chip">Machine Learning</span>
+                <span class="stack-chip">Web Platform</span>
+                <span class="stack-chip">Vercel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="sec-head reveal">
+          <div>
+            <span class="index-tag">04 — Contact</span>
+            <h2>Get in touch</h2>
+          </div>
+          <p class="sec-note">Open to internships, collaborations, and conversations about applied AI.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="reveal">
+            <p style="color:var(--ink-soft); font-weight:300; line-height:1.8; max-width:42ch; font-size:0.95rem;">
+              Whether it's a project idea, an opportunity, or a question about the recommendation system —
+              reach out through any of the channels below.
+            </p>
+            <div class="contact-list">
+              <a class="contact-row" href="mailto:gokulakrishnan.s@example.com">
+                <span><span class="k">Email</span><br><span class="v">gokulakrishnan.s@example.com</span></span>
+                <span class="arrow">→</span>
+              </a>
+              <a class="contact-row" href="#" target="_blank" rel="noopener noreferrer">
+                <span><span class="k">LinkedIn</span><br><span class="v">linkedin.com/in/gokulakrishnan-s</span></span>
+                <span class="arrow">→</span>
+              </a>
+              <a class="contact-row" href="#" target="_blank" rel="noopener noreferrer">
+                <span><span class="k">GitHub</span><br><span class="v">github.com/gokulakrishnan-s</span></span>
+                <span class="arrow">→</span>
+              </a>
+              <div class="contact-row">
+                <span><span class="k">Location</span><br><span class="v">Tamil Nadu, India</span></span>
+              </div>
+            </div>
+          </div>
+
+          <form class="msg-form reveal" id="contactForm">
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" placeholder="What would you like to talk about?"
+                required></textarea>
+            </div>
+            <button class="btn btn-solid" type="submit" style="justify-content:center;">Send message</button>
+            <p class="form-note">Opens your email app, addressed and ready to send.</p>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2026 Gokulakrishnan S.</span>
+        <span>AI &amp; Data Science — St. Joseph's College of Engineering</span>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+    /* ---------- Section nav + gauge fill ---------- */
+    (function () {
+      const order = ['home', 'about', 'project', 'contact'];
+      const sections = order.map(id => document.getElementById(id));
+      const railBtns = document.querySelectorAll('.rail-index button');
+      const mobileBtns = document.querySelectorAll('.mobile-nav button');
+
+      function setActive(id) {
+        const idx = order.indexOf(id);
+        railBtns.forEach(b => {
+          const bIdx = order.indexOf(b.dataset.target);
+          b.classList.toggle('active', bIdx === idx);
+          b.classList.toggle('passed', bIdx < idx);
+        });
+        mobileBtns.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+      }
+
+      [...railBtns, ...mobileBtns].forEach(b => {
+        b.addEventListener('click', () => {
+          document.getElementById(b.dataset.target).scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) { setActive(entry.target.id); } });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+      sections.forEach(s => observer.observe(s));
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    })();
+
+    /* ---------- Animate skill bars once in view ---------- */
+    (function () {
+      const bars = document.querySelectorAll('.bar-fill');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.width = e.target.dataset.fill + '%';
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      bars.forEach(b => io.observe(b));
+    })();
+
+    /* ---------- Button ripple ---------- */
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 1.4;
+        const span = document.createElement('span');
+        span.className = 'ripple';
+        span.style.width = span.style.height = size + 'px';
+        span.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        span.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        span.style.background = btn.classList.contains('btn-solid')
+          ? 'rgba(255,255,255,0.35)'
+          : 'rgba(18,143,131,0.22)';
+        btn.appendChild(span);
+        setTimeout(() => span.remove(), 650);
+      });
+    });
+
+    /* ---------- Pond ripple canvas in hero ---------- */
+    (function () {
+      const canvas = document.getElementById('pondCanvas');
+      const frame = document.getElementById('heroFrame');
+      if (!canvas || !frame) return;
+      const ctx = canvas.getContext('2d');
+      let ripples = [];
+      let raf = null;
+
+      function resize() {
+        canvas.width = frame.clientWidth;
+        canvas.height = frame.clientHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ripples = ripples.filter(r => r.life < 1);
+        ripples.forEach(r => {
+          r.life += 0.012;
+          const radius = r.life * r.maxRadius;
+          const alpha = (1 - r.life) * 0.5;
+          ctx.beginPath();
+          ctx.arc(r.x, r.y, radius, 0, Math.PI * 2);
+          ctx.strokeStyle = r.color.replace('ALPHA', alpha.toFixed(3));
+          ctx.lineWidth = 1.4;
+          ctx.stroke();
+        });
+        if (ripples.length) { raf = requestAnimationFrame(draw); } else { raf = null; }
+      }
+
+      frame.addEventListener('click', function (e) {
+        if (e.target.closest('a.btn')) return;
+        const rect = frame.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const color = ripples.length % 2 === 0 ? 'rgba(18,143,131,ALPHA)' : 'rgba(221,150,44,ALPHA)';
+        ripples.push({ x, y, life: 0, maxRadius: Math.max(canvas.width, canvas.height) * 0.5, color });
+        if (reduceMotion) {
+          ctx.beginPath();
+          ctx.arc(x, y, 26, 0, Math.PI * 2);
+          ctx.strokeStyle = color.replace('ALPHA', '0.4');
+          ctx.lineWidth = 1.4;
+          ctx.stroke();
+          ripples = [];
+          return;
+        }
+        if (!raf) draw();
+      });
+    })();
+
+    /* ---------- Subtle tilt on cards ---------- */
+    if (finePointer && !reduceMotion) {
+      document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mousemove', function (e) {
+          const rect = card.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width - 0.5;
+          const py = (e.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `perspective(900px) rotateX(${(-py * 3.5).toFixed(2)}deg) rotateY(${(px * 3.5).toFixed(2)}deg)`;
+          card.classList.add('tilting');
+        });
+        card.addEventListener('mouseleave', function () {
+          card.style.transform = '';
+          card.classList.remove('tilting');
+        });
+      });
+    }
+
+    /* ---------- Interactive feed calculator demo ---------- */
+    (function () {
+      const speciesEl = document.getElementById('demoSpecies');
+      const pondEl = document.getElementById('demoPond');
+      const densityEl = document.getElementById('demoDensity');
+      const pondVal = document.getElementById('pondVal');
+      const densityVal = document.getElementById('densityVal');
+      const outFeedKg = document.getElementById('outFeedKg');
+      const outProtein = document.getElementById('outProtein');
+      const outWaste = document.getElementById('outWaste');
+      const statFeed = document.getElementById('statFeed');
+      const statProtein = document.getElementById('statProtein');
+      const statWaste = document.getElementById('statWaste');
+
+      function flash(el) {
+        el.classList.add('flash');
+        setTimeout(() => el.classList.remove('flash'), 350);
+      }
+
+      function recompute() {
+        const opt = speciesEl.selectedOptions[0];
+        const rate = parseFloat(opt.dataset.rate);
+        const protein = opt.dataset.protein;
+        const pond = parseFloat(pondEl.value);
+        const density = parseFloat(densityEl.value);
+
+        pondVal.textContent = pond.toFixed(1);
+        densityVal.textContent = Math.round(density).toLocaleString();
+
+        const totalFish = pond * density;
+        const feedKg = (totalFish * rate) / 10; // scaled to a farmer-readable daily figure
+        const densityFactor = density / 4000;
+        const wasteCut = Math.min(38, Math.max(14, 16 + densityFactor * 6 + pond * 1.2));
+
+        outFeedKg.textContent = feedKg.toFixed(1);
+        outProtein.textContent = protein + '%';
+        outWaste.textContent = '↓' + Math.round(wasteCut) + '%';
+
+        flash(statFeed); flash(statProtein); flash(statWaste);
+      }
+
+      [speciesEl, pondEl, densityEl].forEach(el => el.addEventListener('input', recompute));
+      recompute();
+    })();
+
+    /* ---------- Contact form ---------- */
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('cf-name').value;
+      const email = document.getElementById('cf-email').value;
+      const message = document.getElementById('cf-message').value;
+      const subject = encodeURIComponent('Portfolio contact from ' + name);
+      const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+      window.location.href = 'mailto:gokulakrishnan.s@example.com?subject=' + subject + '&body=' + body;
+    });
+  </script>
+
+</body>
+
+</html>
