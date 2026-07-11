@@ -1128,7 +1128,7 @@
     body {
       background: radial-gradient(circle at top left, #2d3f66 0%, transparent 35%), radial-gradient(circle at bottom right, #1b7f8f 0%, transparent 30%), linear-gradient(135deg, #0b1120, #111827, #0f172a) !important;
       background-attachment: fixed;
-      color: #fff !important;
+      color: #ffffff !important;
       overflow-x: hidden;
     }
 
@@ -1215,16 +1215,16 @@
           <canvas id="pondCanvas"></canvas>
           <span class="mono" style="font-size:0.7rem;color:var(--muted);letter-spacing:0.06em;">DEPTH LOG — GKS /
             01</span>
-          <h1 class="hero-name">Gokulakrishnan&nbsp;S</h1>
-          <p class="hero-role">
-            An <strong>Artificial Intelligence &amp; Data Science</strong> engineering student who builds
+          <h1 class="hero-name" style="color:rgb(40, 0, 92);" >Gokulakrishnan&nbsp;S</h1>
+          <p class="hero-role" >
+            An <strong style="color:#128f83"> Artificial Intelligence &amp; Data Science</strong> engineering student who builds
             practical, data-driven software — currently focused on applied machine learning and
             end-to-end product delivery.
           </p>
 
           <div class="hero-specs">
             <div class="spec">
-              <div class="k">Institution</div>
+              <div class="k" style="font-weight: bold;" >Institution</div>
               <div class="v">St. Joseph's College of Engineering</div>
             </div>
             <div class="spec">
@@ -1242,7 +1242,7 @@
           </div>
 
           <div class="hero-actions">
-            <a class="btn btn-solid" href="#project">View project</a>
+            <a class="btn btn-solid" href="#project" style="color: black;">View project</a>
             <a class="btn btn-line" href="#contact">Contact</a>
           </div>
           <p class="mono" style="font-size:0.66rem;color:var(--muted);margin-top:22px;">Tip: click anywhere in this
@@ -1325,7 +1325,7 @@
             </div>
             <div class="case-cta">
               <a class="btn btn-solid" href="https://fish-feed-recommendation-system.vercel.app/farmer" target="_blank"
-                rel="noopener noreferrer">Open live platform ↗</a>
+                rel="noopener noreferrer" style="color: black;">Open live platform ↗</a>
               <a class="btn btn-line" href="#contact">Ask about the build</a>
             </div>
           </div>
@@ -1543,7 +1543,6 @@
         if (!raf) draw();
       });
     })();
-
     /* ---------- Subtle tilt on cards ---------- */
     if (finePointer && !reduceMotion) {
       document.querySelectorAll('.tilt-card').forEach(card => {
